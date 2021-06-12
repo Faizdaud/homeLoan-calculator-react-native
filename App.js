@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+
+
+const image = require("./assets/bg.png");
 
 export default function App() {
 
@@ -22,55 +25,88 @@ export default function App() {
   setMonthlyPayment(monthlypayment );
   }
 
-  const [text, onChangeText] = React.useState("Useless");
-
   return (
+
+  <ImageBackground source={image} style={styles.image} >
+
     <View style={styles.container}>
 
-<Text style={styles.title}>Home Loan Calculator</Text>
+        <Text style={styles.title}>Home Loan Calculator</Text>
 
-      <Text style={styles.subTitle}>Property Price</Text>
-        <TextInput
-          style={styles.input}
-          value={propertyPrice}
-          onChangeText={propertyPrice=> { setPropertyPrice(propertyPrice); }}
-          placeholder = "RM"
-        />
-      <Text style={styles.subTitle}>DownPayment (ex: 4%, 3.5%, etc ....)</Text>
-        <TextInput
-          style={styles.input}
-          value={downPayment}
-          onChangeText={downPayment=> { setDownPayment(downPayment); }}
-        />
+            <View style={styles.wrapper}>
+                <Text style={styles.subTitle}>Property Price</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="RM" 
+                    placeholderTextColor="#f8f8ff"
+                    keyboardType = "numeric"
+                    value={String(propertyPrice)}
+                    onChangeText={propertyPrice=> { setPropertyPrice(propertyPrice); }}
+                    placeholder = "RM"
+                  />
+            </View>
+
+            <View style={styles.wrapper}>
+              <Text style={styles.subTitle}>DownPayment (%)</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="max 2 decimals" 
+                  placeholderTextColor="#f8f8ff"
+                  keyboardType = "numeric"
+                  value={String(downPayment)}
+                  onChangeText={downPayment=> { setDownPayment(downPayment); }}
+                />
+            </View>  
+
+    <View style={styles.wrapper}>
       <Text style={styles.subTitle}>Interest Rate (%)</Text>
         <TextInput
             style={styles.input}
-            value={interest}
+            keyboardType = "numeric"
+            placeholder="max 2 decimals" 
+            placeholderTextColor="#f8f8ff"
+            value={String(interest)}
             onChangeText={interest=> { setInterest(interest); }}
           />
+    </View>
+
+    <View style={styles.wrapper}>
       <Text style={styles.subTitle}>Loan Term (Years)</Text>
         <TextInput
             style={styles.input}
-            value={year}
+            keyboardType = "numeric"
+            value={String(year)}
             onChangeText={year=> { setYear(year); }}
           />
+    </View>
 
       <TouchableOpacity style={styles.button} onPress={calculateLoan} > 
-        <Text style={styles.buttonText}>Calculate </Text> 
+        <Text style={styles.buttonText}>Calculate</Text> 
       </TouchableOpacity> 
       
-        <Text style={styles.result}>RM {Math.round(monthlypayment)}</Text> 
+      <Text style={styles.subTitle}>Your Monthly Payment:</Text>
+      <Text style={styles.result}>RM {Math.round(monthlypayment)}</Text> 
 
           
       <StatusBar style="auto" />
+      
     </View>
+
+    </ImageBackground>
+
   );
 }
 
 const styles = StyleSheet.create({
+
+  image: { 
+    width: "100%",
+    height: "100%", 
+  },
+
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#dc143c',
     alignItems: 'center',
   },
 
@@ -79,42 +115,57 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center", 
     marginTop: 50, 
-    fontSize: 35  
+    fontSize: 30,  
+    fontWeight: "bold" ,
   },  
+
+  wrapper: {
+    flexDirection:'row', 
+    flexWrap:'wrap',
+    alignItems:"center",
+    // borderWidth: 2, 
+    marginTop: 15,
+  },
 
   subTitle: {
     color: "black",
-    marginTop: 50, 
-    fontSize: 35,
+    // marginTop: 20, 
+    fontSize: 16,
     margin: "auto",
+    marginBottom: 10,
     textAlign: "center", 
-    width: "50%", 
+    width: "35%",
+    fontWeight: "bold" ,
+    // borderWidth: 1,   
 
   }, 
 
   input: { 
-    height: 80, 
-    margin: "auto",
+    height: 40, 
+    margin: 10,
     textAlign: "center", 
-    width: "50%", 
-    fontSize: 50, 
-    marginTop: 24, 
+    width: "45%", 
+    fontSize: 17,  
     color: "#FFCB1F" ,
-    borderWidth: 1,  
+    borderRadius: 10,
+    borderWidth: 2,  
   }, 
 
   buttonText: { 
-    alignSelf: "center", 
-    padding: 30, 
+    alignSelf: "center",
+    margin: 20, 
+    padding: 10, 
     fontSize: 25, 
     color: "#FFCB1F", 
-    fontWeight: "bold" 
+    fontWeight: "bold" ,
+    borderRadius: 15,
+    backgroundColor: "blue",
   }, 
 
     result: { 
       alignSelf: "center",
       color: "#FFCB1F", 
-      fontSize: 65, 
+      fontSize: 45, 
       padding: 15 
     }
 
