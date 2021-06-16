@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 
 
-const image = require("./assets/bg.png");
+const image = require("./assets/house.png");
 
 export default function App() {
 
@@ -27,9 +27,11 @@ export default function App() {
 
   return (
 
-  <ImageBackground source={image} style={styles.image} >
-
+  
+<ImageBackground source={image} style={styles.image} imageStyle={{ opacity: 0.5 }} >
     <View style={styles.container}>
+
+
 
         <Text style={styles.title}>Home Loan Calculator</Text>
 
@@ -38,9 +40,9 @@ export default function App() {
                   <TextInput
                     style={styles.input}
                     placeholder="RM" 
-                    placeholderTextColor="#f8f8ff"
+                    placeholderTextColor="grey"
                     keyboardType = "numeric"
-                    value={String(propertyPrice)}
+                    // value={String(propertyPrice)}
                     onChangeText={propertyPrice=> { setPropertyPrice(propertyPrice); }}
                     placeholder = "RM"
                   />
@@ -51,9 +53,9 @@ export default function App() {
                 <TextInput
                   style={styles.input}
                   placeholder="max 2 decimals" 
-                  placeholderTextColor="#f8f8ff"
+                  placeholderTextColor="grey"
                   keyboardType = "numeric"
-                  value={String(downPayment)}
+                  // value={String(downPayment)}
                   onChangeText={downPayment=> { setDownPayment(downPayment); }}
                 />
             </View>  
@@ -64,8 +66,8 @@ export default function App() {
             style={styles.input}
             keyboardType = "numeric"
             placeholder="max 2 decimals" 
-            placeholderTextColor="#f8f8ff"
-            value={String(interest)}
+            placeholderTextColor="grey"
+            // value={String(interest)}
             onChangeText={interest=> { setInterest(interest); }}
           />
     </View>
@@ -83,16 +85,21 @@ export default function App() {
       <TouchableOpacity style={styles.button} onPress={calculateLoan} > 
         <Text style={styles.buttonText}>Calculate</Text> 
       </TouchableOpacity> 
+
+      
       
       <Text style={styles.subTitle}>Your Monthly Payment:</Text>
       <Text style={styles.result}>RM {Math.round(monthlypayment)}</Text> 
 
           
       <StatusBar style="auto" />
+
       
     </View>
 
     </ImageBackground>
+
+  
 
   );
 }
@@ -100,13 +107,18 @@ export default function App() {
 const styles = StyleSheet.create({
 
   image: { 
-    width: "100%",
-    height: "100%", 
+    flex: 1,
+    // width: "100%",
+    // height: "100%", 
+    resizeMode:"cover",
+    backgroundColor: '#004466',
+    justifyContent: 'center',
+
   },
 
   container: {
     flex: 1,
-    backgroundColor: '#dc143c',
+    // backgroundColor: '#0099e6',
     alignItems: 'center',
   },
 
@@ -128,8 +140,8 @@ const styles = StyleSheet.create({
   },
 
   subTitle: {
-    color: "black",
-    // marginTop: 20, 
+    color: "#FFCB1F",
+    marginTop: 10, 
     fontSize: 16,
     margin: "auto",
     marginBottom: 10,
@@ -146,9 +158,10 @@ const styles = StyleSheet.create({
     textAlign: "center", 
     width: "45%", 
     fontSize: 17,  
-    color: "#FFCB1F" ,
+    color: "black" ,
     borderRadius: 10,
     borderWidth: 2,  
+    backgroundColor: "white",
   }, 
 
   buttonText: { 
